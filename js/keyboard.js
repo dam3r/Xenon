@@ -25,22 +25,26 @@ var P2keyUp = 87;
 var P2keyDown = 83;
 var P2keyLeft = 65;
 var P2keyRight = 68;
-var P2keyShoot = 18;
+var P2keyShoot = 67;
 var P2keyAction = 88;
 //---Keyboard configuration
 
 function keyDownHandler(e){
     if(e.keyCode ==  keyRight) {
          rightPressed = true;
+         Player.isMoving = true;
     }
     else if(e.keyCode ==  keyLeft) {
          leftPressed = true;
+         Player.isMoving = true;
     }
     else if(e.keyCode ==  keyDown) {
          downPressed = true;
+         Player.isMoving = true;
     }
     else if(e.keyCode ==  keyUp) {
          upPressed = true;
+         Player.isMoving = true;
     }
     else if(e.keyCode ==  keyShoot) {
          shootPressed = true;
@@ -51,15 +55,19 @@ function keyDownHandler(e){
     //P2
     if(e.keyCode ==  P2keyRight) {
          P2rightPressed = true;
+         Player2.isMoving = true;
     }
     else if(e.keyCode ==  P2keyLeft) {
          P2leftPressed = true;
+         Player2.isMoving = true;
     }
     else if(e.keyCode ==  P2keyDown) {
          P2downPressed = true;
+         Player2.isMoving = true;
     }
     else if(e.keyCode ==  P2keyUp) {
          P2upPressed = true;
+         Player2.isMoving = true;
     }
     else if(e.keyCode ==  P2keyShoot) {
          P2shootPressed = true;
@@ -72,15 +80,19 @@ function keyDownHandler(e){
 function keyUpHandler(e) {
     if(e.keyCode ==  keyRight) {
          rightPressed = false;
+         Player.isMoving = false;
     }
     else if(e.keyCode ==  keyLeft) {
          leftPressed = false;
+         Player.isMoving = false;
     }
     else if(e.keyCode ==  keyDown) {
          downPressed = false;
+         Player.isMoving = false;
     }
     else if(e.keyCode ==  keyUp) {
          upPressed = false;
+         Player.isMoving = false;
     }
     else if(e.keyCode ==  keyShoot) {
          shootPressed = false;
@@ -91,15 +103,19 @@ function keyUpHandler(e) {
     //P2
     if(e.keyCode ==  P2keyRight) {
          P2rightPressed = false;
+         Player2.isMoving = false;
     }
     else if(e.keyCode ==  P2keyLeft) {
          P2leftPressed = false;
+         Player2.isMoving = false;
     }
     else if(e.keyCode ==  P2keyDown) {
          P2downPressed = false;
+         Player2.isMoving = false;
     }
     else if(e.keyCode ==  P2keyUp) {
          P2upPressed = false;
+         Player2.isMoving = false;
     }
     else if(e.keyCode ==  P2keyShoot) {
          P2shootPressed = false;

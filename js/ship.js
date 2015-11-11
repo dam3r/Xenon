@@ -1,21 +1,20 @@
-function Ship(name,x,y,type) {
+function Ship(name,x,y,type,height,width) {
     this.name = name;
     this.x = x;
     this.y = y;
-    this.width = 25;
-    this.height = 25;
+    this.width = width;
+    this.height = height;
     this.collide = "None";
     this.destroy = false;
     this.movSpeed = 0.1;
     this.angle=0;
     this.speed=0.01;
     this.radius=0.015;
+    this.life=3;
+    this.isMoving=false;
     var shipSprite = new Image();
 
-    //if(name=="Player"){
-    	//	this.Keyboard = new Keyboard();
-
-	//}
+    this.flyInTime = 500;
 
     this.lastShoot = new Date();
     this.shootSpeed = 150;
@@ -27,11 +26,6 @@ function Ship(name,x,y,type) {
 
 	this.draw = function() {
 		if(this.type==0){
-			var path=new Path2D();
-		    path.moveTo(this.x,this.y);
-		    path.lineTo(this.x-this.width,this.y+this.height);
-		    path.lineTo(this.x+this.width,this.y+this.height);
-		    path.lineTo(this.x,this.y);
 		    if(this.name=="Player2"){
 		    	shipSprite.src = 'img/ship01.png';
 		    }else{
@@ -40,24 +34,22 @@ function Ship(name,x,y,type) {
 			ctx.drawImage(shipSprite, this.x-(shipSprite.width/2), this.y);
 			
 		}else{
-			//ctx.shadowColor = 'rgba(100, 100, 255, 1)';
-			ctx.fillStyle = '#fff';
-			ctx.beginPath();
-		    ctx.arc(this.x, this.y, this.width, 0, Math.PI*2);
-		    ctx.fillStyle = "#f00";
-		    ctx.strokeStyle = "rgba(190, 15, 255, 0.5)";
-		    ctx.fill();
-		    ctx.closePath();
+			if(this.name=="Enemy"){
+		    	shipSprite.src = 'img/ship_pirate.png';
+		    }else if(this.name=="Pirate"){
+				shipSprite.src = 'img/enemyShip.png';
+			}
+			ctx.drawImage(shipSprite, this.x-(shipSprite.width/2), this.y-(shipSprite.height/2));
 		}
 	};
 
-	this.shoot = function() {
+	this.shoot = function(name,movDir) {
 		if(this.x > 0 && this.x < canvas.width && this.y > 0 && this.y < canvas.height && (new Date-this.lastShoot)>this.shootSpeed){
 			if(this.shootType==0){
-				Bullets.push(new Bullet(this.x,this.y,0.5,2,1,0,this.name));
+				Bullets.push(new Bullet(this.x,this.y,0.5,2,movDir,0,name));
 			}else if(this.shootType==1){
-				Bullets.push(new Bullet(this.x-this.width,this.y+this.height,0.5,2,1,0,this.name));
-				Bullets.push(new Bullet(this.x+this.width,this.y+this.height,0.5,2,1,0,this.name));
+				Bullets.push(new Bullet(this.x-this.width,this.y+this.height,0.5,2,1,0,name));
+				Bullets.push(new Bullet(this.x+this.width,this.y+this.height,0.5,2,1,0,name));
 			}
 			this.lastShoot = new Date();
 		};
@@ -73,8 +65,23 @@ function Ship(name,x,y,type) {
 		this.counter = 0;
 	};
 
-	
+	this.AIMove = function(){
+		this.isMoving = true;
+		this.x = this.x- Math.cos(this.angle/2);// * this.radius;// * circle.radius;
+		this.y = this.y+ Math.sin(this.angle);// * this.radius;
+		this.angle +=0.01;
+		this.radius +=0.001;
+	};
 
+	this.AIcomeOnBoard = function(){
+
+	}
+
+	this.AIShoot = function(){
+		if(Math.random()>0.999){
+			this.shoot("Enemy",5);
+		}
+	}
 		//this.x=50;
 	
 

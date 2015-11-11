@@ -5,7 +5,7 @@ function Bullet(x,y,time,speed,Mdir,collide,owner){
 	this.width=25;
 	this.height=25;
 	this.time=time;
-	this.owner=0;
+	this.owner=owner;
 	this.speed=speed;
 	this.Mdir=Mdir;
 	this.collide=collide;
@@ -14,7 +14,11 @@ function Bullet(x,y,time,speed,Mdir,collide,owner){
 			ctx.fillStyle = "rgba(0, 0, 0, 1)";
 			ctx.beginPath();
 		    ctx.arc(this.x, this.y, 2, 0, Math.PI*2);
-		    ctx.fillStyle = "#f00";
+		    if(owner=="Player" || owner=="Player2"){
+		    	ctx.fillStyle = "#fff";
+		    }else{
+		    	ctx.fillStyle = "#f00";
+			}
 		    ctx.fill();
 		    ctx.closePath();
 	};
