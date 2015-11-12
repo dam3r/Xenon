@@ -17,7 +17,7 @@ function Ship(name,x,y,type,height,width) {
     this.flyInTime = 500;
 
     this.lastShoot = new Date();
-    this.shootSpeed = 150;
+    this.shootSpeed = 450;
     this.shootType = 0;
 
     this.type = type;
@@ -83,6 +83,4 @@ function Ship(name,x,y,type,height,width) {
 		}
 	}
 		//this.x=50;
-	
-
 };

@@ -114,7 +114,7 @@ function draw(){
 			Player.shoot(Player.name,1);
 		}
 		if(Player.isMoving){
-			createExplosion(Player.x, Player.y+Player.height, "#FF9933",0);
+			createExplosion(Player.x, Player.y+Player.height, "#33CCCC",0);
 		}
 		Player.draw();
 
@@ -144,8 +144,19 @@ function draw(){
 	}
 
 	if(Player.collide=="Enemy"){
-		Player.score-=100;
+		Player.score-=10000;
+		if(Player.score<0){
+			Player.score=0;
+		}
 		Player.life-=1;
+	}
+
+	if(Enemies.length<1){
+		var randomer = randomFloat(1,8);
+		for(count=0;count<randomer;count++){
+			Enemies.push(new Ship("Enemy",280+(count*230),200,1,128,128,2));
+			Enemies.push(new Ship("Pirate",360+(count*230),count*10,1,128,128,randomFloat(1,8)));
+		}
 	}
 
 	for(c=0;c<Enemies.length;c++){
@@ -161,12 +172,17 @@ function draw(){
 		for(b=0;b<Bullets.length;b++){
 			if(Bullets[b].owner!="Enemy"){
 				if(collideTest(Enemies[c],Bullets[b])){
+					if(Bullets[b].owner=="Player"){
+						Player.score+=1000;	
+					}else{
+						Player2.score+=1000;
+					}
 					Bullets.splice(b,1);
 					createExplosion(Enemies[c].x, Enemies[c].y, "#525252",1);
 					createExplosion(Enemies[c].x, Enemies[c].y, "#FF9933",1);
 					Enemies.splice(c,1);
 
-					Player.score+=1000;	
+					
 				};
 			}
 		}
@@ -179,16 +195,29 @@ function draw(){
 		}else{
 			Bullets[c].y+=Bullets[c].speed;
 		}
+		if(Bullets[c].owner=="Player"){
+			createExplosion(Bullets[c].x, Bullets[c].y+40, "#0099FF",2);
+		}else if(Bullets[c].owner=="Player2"){
+			createExplosion(Bullets[c].x, Bullets[c].y+40, "#66CC00",2);
+		}else{
+			createExplosion(Bullets[c].x, Bullets[c].y-8, "#999933",2);
+		}
 
 		if(Bullets[c].owner!="Player"){
 			if(collideTest(Bullets[c],Player)){
-				Bullets.splice(b,1);
+				Bullets.splice(c,1);
 				createExplosion(Player.x, Player.y, "#525252",1);
 				Player.score-=500;
 			}
+			/*if(collideTest(Bullets[c],Player2)){
+				Bullets.splice(c,1);
+				createExplosion(Player2.x, Player2.y, "#525252",1);
+				Player2.score-=500;
+			}*/
 		}
-		
 
+
+		
 		if(Bullets[c].y < 0 || Bullets[c].y > canvas.height){
 			Bullets.splice(c,1);
 		}

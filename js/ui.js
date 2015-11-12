@@ -5,8 +5,8 @@ function UI(){
 	
 	this.draw = function(){
 		ctx.fillStyle = "rgba(255,255,255, 1)";
-		ctx.font = "20px sans-serif";
-		ctx.fillText("Gracz 1:"+Player.score+" "+Bullets.length+" "+particles.length,0,canvas.height-20);
+		ctx.font = "28px sans-serif";
+		ctx.fillText("Gracz 1:"+Player.score,0,canvas.height-20);
 		if(Player2.playing==1){
 			ctx.fillText("Gracz :"+Player2.score+" "+Bullets.length,canvas.width/2,canvas.height-20);
 		}else{
